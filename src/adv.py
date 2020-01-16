@@ -58,9 +58,7 @@ while status:
     direction = input('\nWhat direction do you wish to travel? Please enter n, s, e, or w\n')
 
     try:
-        if direction == 'q':
-            print('You have quit!!\n')
-            status = False
+        
 
         if direction == 'n' or direction == 'e' or direction == 's' or direction == 'w':
             attr = f'{direction}_to'
@@ -73,3 +71,7 @@ while status:
                 print(player)
     except ValueError:
         print('Error...\n')
+
+    if direction == 'q':
+            print('You have quit!!\n')
+            status = False
