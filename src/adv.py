@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -25,8 +27,8 @@ earlier adventurers. The only exit is to the south."""),
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
+room['foyer'].s_to = room['narrow']
+room['foyer'].w_to = room['overlook']
 room['foyer'].e_to = room['narrow']
 room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
@@ -38,6 +40,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player(input('Please enter your name '), room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +52,34 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+status = True
+
+while status:
+    direction = input('\nWhat direction do you wish to travel? Please enter n, s, e, or w\n')
+
+    try:
+
+        if direction == 'e' or direction == 'n' or direction == 's' or direction == 'w':
+            attr = f'{direction}_to'
+            
+            if player.current_room.__dict__[attr] == None:
+                print('\nChoose another direction please.\n')
+            
+            else:
+                player.current_room = player.current_room.__dict__[attr]
+                print(player)
+
+        item = input("Please choose an item ")
+        print('We have chose item: ',item)
+
+
+        # room[player.current_room].items.append({'Name ': item})
+
+    except ValueError:
+        print('Error...\n')
+
+    if direction == 'q':
+            print('Later Sucka\n')
+            status = False
